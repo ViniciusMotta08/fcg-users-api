@@ -1,0 +1,26 @@
+# Configurações NÃO sensíveis do UsersAPI.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: users-api-config
+  namespace: fcg
+  labels:
+    app.kubernetes.io/name: users-api
+    app.kubernetes.io/part-of: fiap-cloud-games
+data:
+  ASPNETCORE_ENVIRONMENT: "Production"
+  # Broker acessado pelo nome do Service do Kubernetes
+  RabbitMq__Host: "rabbitmq"
+  RabbitMq__Porta: "5672"
+  RabbitMq__VirtualHost: "/"
+  RabbitMq__Exchange: "fcg.events"
+  RabbitMq__DeadLetterExchange: "fcg.events.dlx"
+  RabbitMq__PrefetchCount: "10"
+  Jwt__Issuer: "FCG.UsersApi"
+  Jwt__Audience: "FCG.Clientes"
+  Jwt__MinutosExpiracao: "120"
+  # Cria/atualiza o schema do banco na subida do pod (não insere dados)
+  Banco__CriarEstruturaAutomaticamente: "true"
+  # Criação do 1º administrador: DESABILITADA. Para habilitar, mude para "true" e defina a senha no Secret.
+  AdministradorInicial__Habilitado: "false"
+  AdministradorInicial__Email: "admin@fcg.com.br"

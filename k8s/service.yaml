@@ -1,0 +1,17 @@
+# Dentro do cluster o serviço é acessado por http://users-api:80
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-api
+  namespace: fcg
+  labels:
+    app.kubernetes.io/name: users-api
+    app.kubernetes.io/part-of: fiap-cloud-games
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: users-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
